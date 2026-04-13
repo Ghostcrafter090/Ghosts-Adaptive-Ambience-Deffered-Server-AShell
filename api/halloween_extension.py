@@ -9,10 +9,10 @@ import threading
 import math
 import modules.logManager as log
 import modules.weather as weather
-import pylunar
 import copy
 import traceback
 import importlib
+from PyAstronomy import pyasl
 
 weather = importlib.reload(weather)
 
@@ -203,9 +203,21 @@ class data:
         except:
             coords = pytools.IO.getJson("./working/location.json")["coords"]
         
+        moonObj = pyasl.jdcnv(datetime(*dateArray))
+        return float(((pyasl.moonphase(moonObj) - 0.5) * 2)[0])
+    
+    """
+    def getLunarPhaseOld(dateArray):
+        
+        try:
+            coords = pytools.IO.getJson("./location.json", doPrint=False)["coords"]
+        except:
+            coords = pytools.IO.getJson("./working/location.json")["coords"]
+        
         moonObj = pylunar.MoonInfo((coords[0], 0, 0), (coords[1], 0, 0))
         moonObj.update(tuple(dateArray))
         return (moonObj.fractional_phase() - 0.5) * 2
+    """
     
     # https://www.desmos.com/calculator/cen0vzl8q4
     # https://www.desmos.com/calculator/gxlcmcqbq5
