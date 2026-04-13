@@ -265,7 +265,7 @@ def run():
         try:
             pytools.IO.saveJson("hosts.json", pytools.net.getJsonAPI("http://" + pytools.IO.getJson("serverSettings.json")["ip"] + ':5597?json=' + urllib.parse.quote(json.dumps({"command":"getJson","data":{"path":".\\hosts.json"}}))))
         except:
-            pass
+            print(traceback.format_exc())
         
         try:
             hosts = pytools.IO.getJson("./hosts.json")["hosts"]
@@ -295,7 +295,7 @@ def run():
     while True:
         
         try:
-            pytools.IO.saveJson("hosts.json", pytools.net.getJsonAPI("http://" + pytools.IO.getJson("serverSettings.json")["ip"] + ':5597?json=' + urllib.parse.quote(json.dumps({"command":"getJson","data":{"path":".\\hosts.json"}}))))
+            pytools.IO.saveJson("hosts.json", pytools.net.getJsonAPI("http://" + pytools.IO.getJson("./serverSettings.json")["ip"] + ':5597?json=' + urllib.parse.quote(json.dumps({"command":"getJson","data":{"path":".\\hosts.json"}}))))
         except:
             pass
     
