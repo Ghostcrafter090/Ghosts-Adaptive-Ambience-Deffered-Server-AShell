@@ -4,8 +4,6 @@ import modules.floorplan as floorplan
 import random
 import math
 import time
-import modules.ghostAudio as ghostAudio
-import speech_recognition as sr
 import os
 import traceback
 import threading
@@ -634,7 +632,7 @@ class ghost:
                             for n in soundEvents:
                                 if h:
                                     if (pytools.clock.dateArrayToUTC(soundEvents[n]) + 30) > pytools.clock.dateArrayToUTC(dateArray):
-                                        self.activeMemmory = [pytools.clock.getDateTime(), pytools.IO.getJson("mics.json")[sr.Microphone.get_pyaudio().PyAudio().get_device_info_by_index(int(n))["name"]]]
+                                        self.activeMemmory = [pytools.clock.getDateTime(), 0] # pytools.IO.getJson("mics.json")[sr.Microphone.get_pyaudio().PyAudio().get_device_info_by_index(int(n))["name"]]]
                                         self.mood = self.mood - 3
                                         h = False
                         except:
@@ -688,7 +686,7 @@ class ghost:
                             for n in soundEvents:
                                 if h:
                                     if (pytools.clock.dateArrayToUTC(soundEvents[n]) + 30) > pytools.clock.dateArrayToUTC(dateArray):
-                                        self.activeMemmory = [pytools.clock.getDateTime(), pytools.IO.getJson("mics.json")[sr.Microphone.get_pyaudio().PyAudio().get_device_info_by_index(int(n))["name"]]]
+                                        self.activeMemmory = [pytools.clock.getDateTime(), 0] # pytools.IO.getJson("mics.json")[sr.Microphone.get_pyaudio().PyAudio().get_device_info_by_index(int(n))["name"]]]
                                         k = True
                                         self.mood = self.mood - 3
                                         h = False
@@ -773,7 +771,7 @@ class ghost:
                             for n in soundEvents:
                                 if h:
                                     if (pytools.clock.dateArrayToUTC(soundEvents[n]) + 30) > pytools.clock.dateArrayToUTC(dateArray):
-                                        self.activeMemmory = [pytools.clock.getDateTime(), pytools.IO.getJson("mics.json")[sr.Microphone.get_pyaudio().PyAudio().get_device_info_by_index(int(n))["name"]]]
+                                        self.activeMemmory = [pytools.clock.getDateTime(), 0] # pytools.IO.getJson("mics.json")[sr.Microphone.get_pyaudio().PyAudio().get_device_info_by_index(int(n))["name"]]]
                                         self.mood = self.mood - 8
                                         h = False
                         except:
@@ -844,7 +842,7 @@ class ghost:
                             for n in soundEvents:
                                 if h:
                                     if (pytools.clock.dateArrayToUTC(soundEvents[n]) + 30) > pytools.clock.dateArrayToUTC(dateArray):
-                                        self.activeMemmory = [pytools.clock.getDateTime(), pytools.IO.getJson("mics.json")[sr.Microphone.get_pyaudio().PyAudio().get_device_info_by_index(int(n))["name"]]]
+                                        self.activeMemmory = [pytools.clock.getDateTime(), 0] # pytools.IO.getJson("mics.json")[sr.Microphone.get_pyaudio().PyAudio().get_device_info_by_index(int(n))["name"]]]
                                         self.mood = self.mood - 3
                                         h = False
                                         k = True
