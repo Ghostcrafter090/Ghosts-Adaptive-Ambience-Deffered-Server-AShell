@@ -116,8 +116,22 @@ def printDebug(strf):
     print(strf)
 
 
-from mutagen.mp3 import MP3
-from mutagen.wave import WAVE
+from mutagen.mp3 import MP3 as _MP3
+from mutagen.wave import WAVE as _WAVE
+
+class __MP3:
+    def __init__(self, *args):
+        pass
+    
+    class info:
+        length = 10
+
+def MP3(*args):
+    return __MP3(*args)
+
+def WAVE(*args):
+    return __MP3(*args)
+    
 
 del traceback_format_exc
 del math_log, math_fabs, math_floor
