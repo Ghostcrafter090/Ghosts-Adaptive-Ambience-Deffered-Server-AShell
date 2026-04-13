@@ -362,7 +362,7 @@ class IO:
         return error
 
     # Retreives an array from a file in the form of a pickle list.
-    def getList(path):
+    def getList(path, doPrint=True):
         list = []
         error = 0
         try:
@@ -370,7 +370,8 @@ class IO:
             jsonData = pickle.load(file)
             file.close()
         except:
-            print("Unexpected error:", sys.exc_info())
+            if doPrint:
+                print("Unexpected error:", sys.exc_info())
             error = 1
         if error != 0:
             jsonData = error

@@ -77,6 +77,7 @@ class plugin:
                         print(traceback.format_exc())
                     time.sleep(3)
                 except:
+                    print(traceback.format_exc())
                     print("log error.")
                     time.sleep(3)
     
