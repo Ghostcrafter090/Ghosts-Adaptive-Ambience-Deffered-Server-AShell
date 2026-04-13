@@ -283,7 +283,7 @@ def run():
     os.system("del ./vars/pluginSounds/*.cx /f /s /q")
     handlers.main.registerPlugins()
     handlers.main.loadPlugins()
-    audio.command.sendStop()
+    # audio.command.sendStop()
     handlers.main.launchPlugins()
     
     if flags.deffered:
