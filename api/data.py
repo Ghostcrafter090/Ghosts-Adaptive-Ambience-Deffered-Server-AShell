@@ -37,11 +37,11 @@ class status:
 class globals:
     lat = 0
     lon = 0
-    urlBase = 'http://gsweathermore.ddns.net:226/access.php?grabopenlocspec=true&lat=<lat>&lon=<lon>&key='
-    urlBaseNorth = 'http://gsweathermore.ddns.net:226/access.php?grabopennorth=true&lat=<lat>&lon=<lon>&key='
-    urlBaseSouth = 'http://gsweathermore.ddns.net:226/access.php?grabopensouth=true&lat=<lat>&lon=<lon>&key='
-    urlBaseEast = 'http://gsweathermore.ddns.net:226/access.php?grabopeneast=true&lat=<lat>&lon=<lon>&key='
-    urlBaseWest = 'http://gsweathermore.ddns.net:226/access.php?grabopenwest=true&lat=<lat>&lon=<lon>&key='
+    urlBase = 'http://' + pytools.IO.getJson(".\\serverSettings.json")["domain_interface"] + ':226/access.php?grabopenlocspec=true&lat=<lat>&lon=<lon>&key='
+    urlBaseNorth = 'http://' + pytools.IO.getJson(".\\serverSettings.json")["domain_interface"] + ':226/access.php?grabopennorth=true&lat=<lat>&lon=<lon>&key='
+    urlBaseSouth = 'http://' + pytools.IO.getJson(".\\serverSettings.json")["domain_interface"] + ':226/access.php?grabopensouth=true&lat=<lat>&lon=<lon>&key='
+    urlBaseEast = 'http://' + pytools.IO.getJson(".\\serverSettings.json")["domain_interface"] + ':226/access.php?grabopeneast=true&lat=<lat>&lon=<lon>&key='
+    urlBaseWest = 'http://' + pytools.IO.getJson(".\\serverSettings.json")["domain_interface"] + ':226/access.php?grabopenwest=true&lat=<lat>&lon=<lon>&key='
     sysTmf = []
     
     
@@ -123,10 +123,10 @@ class globals:
     
     doManual = False
     
-    urlFast = 'http://gsweathermore.ddns.net:226/access.php?key=56c15c7d00df42d8815c7d00df42d8ab'
-    urlOtherFast= 'http://gsweathermore.ddns.net:226/access.php?grabotherfast=true&key=56c15c7d00df42d8815c7d00df42d8ab'
-    urlSuperFast = 'http://gsweathermore.ddns.net:226/currentdata.json'
-    urlPrecip = "http://gsweathermore.ddns.net:226/precipitationData.json"
+    urlFast = 'http://' + pytools.IO.getJson(".\\serverSettings.json")["domain_interface"] + ':226/access.php?key=56c15c7d00df42d8815c7d00df42d8ab'
+    urlOtherFast= 'http://' + pytools.IO.getJson(".\\serverSettings.json")["domain_interface"] + ':226/access.php?grabotherfast=true&key=56c15c7d00df42d8815c7d00df42d8ab'
+    urlSuperFast = 'http://' + pytools.IO.getJson(".\\serverSettings.json")["domain_interface"] + ':226/currentdata.json'
+    urlPrecip = "http://" + pytools.IO.getJson(".\\serverSettings.json")["domain_interface"] + ":226/precipitationData.json"
     dataBaseOld = [0.0, 0.0, 15000, 0.0, 'clear', 0, 1000.0, 15.0, 50.0, 0, 0]
     dataFastOld = [0, 0, 1000.0, 15, 50, 0]
     dataSuperOld = [15, 50, 1000.0, 0, 0, 0]
@@ -355,7 +355,7 @@ class grabber:
             
         otherApiKey = openweather.stealApiKey(openweather.pollJavascriptFilename())
         
-        forecastUrl = "http://gsweathermore.ddns.net:226/access.php?grabopenforecast=true&key=" + pytools.IO.getJson("access.key")["openweathermap"]
+        forecastUrl = "http://" + pytools.IO.getJson(".\\serverSettings.json")["domain_interface"] + ":226/access.php?grabopenforecast=true&key=" + pytools.IO.getJson("access.key")["openweathermap"]
         
         if otherApiKey:
             dailyUrl = "https://api.openweathermap.org/data/2.5/forecast/daily?" + pictou + "&cnt=16&appid=" + otherApiKey
