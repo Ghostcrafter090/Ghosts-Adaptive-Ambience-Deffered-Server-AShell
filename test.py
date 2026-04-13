@@ -19,7 +19,7 @@ class globals:
 
 def debug(name, run=False):
     try:
-        name = name.split("\\")[-1].split(".py")[0]
+        name = name.split("/")[-1].split(".py")[0]
     except:
         pass
     global pl
@@ -28,7 +28,7 @@ import api.""" + name + """
 plugin.test = api.""" + name + """
 """)
     
-    os.chdir(".\\working")
+    os.chdir("./working")
     
     plugin.test.status.apiKey = globals.apiKey
 
