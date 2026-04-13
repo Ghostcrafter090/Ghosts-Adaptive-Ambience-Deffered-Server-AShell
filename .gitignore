@@ -61,7 +61,6 @@ gil.json
 
 hosts.json
 outsideProperties.json
-serverSettings.json
 streamThreads.json
 streams
 working/.audiocache
