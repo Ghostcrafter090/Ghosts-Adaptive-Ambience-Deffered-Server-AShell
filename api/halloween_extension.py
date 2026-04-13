@@ -198,11 +198,6 @@ class data:
     
     def getLunarPhase(dateArray):
         
-        try:
-            coords = pytools.IO.getJson("./location.json", doPrint=False)["coords"]
-        except:
-            coords = pytools.IO.getJson("./working/location.json")["coords"]
-        
         moonObj = pyasl.jdcnv(datetime(*dateArray))
         return float(((pyasl.moonphase(moonObj) - 0.5) * 2)[0])
     

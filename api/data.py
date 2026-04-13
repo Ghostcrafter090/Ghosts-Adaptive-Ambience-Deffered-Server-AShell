@@ -854,10 +854,11 @@ def main():
     try:
         data = bulk.getData(1, [], True)
     except:
+        data = []
         print(traceback.format_exc())
     while not status.exit:
         try:
-            data = bulk.getData(1, data, False)
+            data = bulk.getData(1, data, len(data) == 0)
         except:
             print(traceback.format_exc())
         if (pytools.clock.getDateTime()[5] % 10) == 0:

@@ -157,37 +157,29 @@ if platform.system() == "Windows":
 # IO class, used for performing IO operations between files on disk.
 class IO:
     # returns json object from json file path
-    def getJson(path):
+    def getJson(path, doPrint=True):
+        import traceback
         error = 0
         try:
             file = open(path, "r")
             jsonData = json.loads(file.read())
             file.close()
         except:
-            print("Unexpected error:", sys.exc_info())
+            if doPrint:
+                print(traceback.format_exc())
+                print("Unexpected error:", sys.exc_info())
+                print(path)
             error = 1
         if error != 0:
             jsonData = error
         return jsonData
-        
-    def getXML(path):
-        tree = ET.parse(path)
-        root = tree.getroot()
-        return root
-        
-    def saveXML(path, xml):
-        error = 0
-        try:
-            file = open(path, "w")
-            file.write(ET.tostring(xml).decode('UTF-8').replace("ns0:", "").replace(":ns0", ""))
-            file.close()
-        except:
-            print("Unexpected error:", sys.exc_info())
-            error = 1
-        return error
+    
+    def getXml(path, doPrint=True):
+        return
+    
+    def saveXml(path, doPrint=True):
+        pass
 
-
-    # saves json object into a file
     def saveJson(path, jsonData):
         error = 0
         try:
@@ -199,15 +191,29 @@ class IO:
             error = 1
         return error
 
-    # returns file contents of path in the form of a string
-    def getFile(path):
+    def getFile(path, doPrint=True):
         error = 0
         try:
             file = open(path, "r")
             jsonData = file.read()
             file.close()
         except:
-            print("Unexpected error:", sys.exc_info())
+            if doPrint:
+                print("Unexpected error:", sys.exc_info())
+            error = 1
+        if error != 0:
+            jsonData = error
+        return jsonData
+    
+    def getBytes(path, doPrint=True):
+        error = 0
+        try:
+            file = open(path, "rb")
+            jsonData = file.read()
+            file.close()
+        except:
+            if doPrint:
+                print("Unexpected error:", sys.exc_info())
             error = 1
         if error != 0:
             jsonData = error
