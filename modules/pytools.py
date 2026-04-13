@@ -1,98 +1,193 @@
-import json
-import os
-import sys
-from win32api import GetModuleHandle, PostQuitMessage
-import win32con
-from win32gui import NIF_ICON, NIF_INFO, NIF_MESSAGE, NIF_TIP, NIM_ADD, NIM_DELETE, NIM_MODIFY, WNDCLASS, CreateWindow, DestroyWindow, LoadIcon, LoadImage, RegisterClass, Shell_NotifyIcon, UpdateWindow
-import psutil
-import ssl
-import smtplib
-import urllib
-from PIL import Image
-from PIL import ImageColor
-import subprocess
-import requests
-import random
-from io import BytesIO
-from urllib.request import urlopen
-from datetime import datetime
-import ctypes
-from bs4 import BeautifulSoup
-import glob
-import math as mather
-import threading
-from suntime import Sun
-import datetime as dater
-from ctypes import *
-import zipfile
-import shutil
-import pickle
-import xmltodict
-import sounddevice as sd
-from mutagen.wave import WAVE
-from mutagen.mp3 import MP3
-import time
-import gtts
-import base64
+# PyTools!
+# A python library by Ghostcrafter090 for making my and your life less confusing!
+# Use it in whatever you wish, just make sure to credit me for this code ;)
 
-from ctypes.wintypes import *
+import platform
 
-import encodings
-import ctypes
-from collections.abc import ByteString
-from typing import Tuple, Optional
-import locale
+class check:
+    cond = False
 
+
+try:
+    import json
+    import os
+    import sys
+    if platform.system() == "Windows":
+        from win32api import GetModuleHandle, PostQuitMessage
+        import win32con
+        from win32gui import NIF_ICON, NIF_INFO, NIF_MESSAGE, NIF_TIP, NIM_ADD, NIM_DELETE, NIM_MODIFY, WNDCLASS, CreateWindow, DestroyWindow, LoadIcon, LoadImage, RegisterClass, Shell_NotifyIcon, UpdateWindow
+        import psutil
+    import ssl
+    import smtplib
+    import urllib
+    from PIL import Image
+    from PIL import ImageColor
+    import subprocess
+    import requests
+    from io import BytesIO
+    from urllib.request import urlopen
+    from datetime import datetime
+    if platform.system() == "Windows":
+        import ctypes
+    from bs4 import BeautifulSoup
+    import math as mather
+    import threading
+    from suntime import Sun
+    import datetime as dater
+    import base64
+    if platform.system() == "Windows":
+        from ctypes import *
+    import zipfile
+    import shutil
+    import pickle
+    import xml.etree.ElementTree as ET
+    
+    if platform.system() == "Windows":
+        
+        from ctypes.wintypes import *
+        
+        import encodings
+        import ctypes
+        from collections.abc import ByteString
+        from typing import Tuple, Optional
+        import locale
+except:
+    import os
+    import sys
+    print("Unexpected error:", sys.exc_info())
+
+    importArray = [
+        ['win32api', "py -m pip install pywin32"],
+        ['win32con', "py -m pip install pywin32"],
+        ['win32gui', "py -m pip install pywin32"],
+        'psutil',
+        ['smtplib', 'py -m pip install secure-smtplib'],
+        ['PIL', 'py -m pip install PILLOW'],
+        'requests',
+        'datetime',
+        'bs4',
+        ['threading', 'py -m pip install thread6'],
+        'suntime',
+        ['zipfile', 'py -m pip install zipfile36 & py -m pip install zipfile38'],
+        ['shutil', 'py -m pip install pytest-shutil'],
+        ['pickle', 'py -m pip install pickle-mixin'],
+        ['base64', 'py -m pip install pybase64']
+    ]
+
+    i = 0
+    install = True
+    while (i < len(importArray)) and (install):
+        # exec("try:\n    import " + importArray[i] + "\n    check.cond = True\nexcept:\n    check.cond = False")
+        if check.cond == False:
+            if "--forceInstall" not in sys.argv:
+                out = input("Permission to install " + str(importArray[i]) + " (Y/n)? ")
+            if out == "Y":
+                if str(importArray[i])[0] == "[":
+                    if platform.system() == "Windows":
+                        os.system(importArray[i][1])
+                    else:
+                        os.system(importArray[i][1].replace("py ", "sh ./py.sh "))
+                else:
+                    if platform.system() == "Windows":
+                        os.system("py -m pip install " + importArray[i])
+                    else:
+                        os.system("sh ./py.sh -m pip install " + importArray[i])
+            else:
+                install = False
+        i = i + 1
+
+    if (install):
+        print("Components Installed!")
+    import json
+    import os
+    import sys
+    if platform.system() == "Windows":
+        from win32api import GetModuleHandle, PostQuitMessage
+        import win32con
+        from win32gui import NIF_ICON, NIF_INFO, NIF_MESSAGE, NIF_TIP, NIM_ADD, NIM_DELETE, NIM_MODIFY, WNDCLASS, CreateWindow, DestroyWindow, LoadIcon, LoadImage, RegisterClass, Shell_NotifyIcon, UpdateWindow
+        import psutil
+    import ssl
+    import smtplib
+    import urllib
+    from PIL import Image
+    from PIL import ImageColor
+    import subprocess
+    import requests
+    from io import BytesIO
+    from urllib.request import urlopen
+    from datetime import datetime
+    if platform.system() == "Windows":
+        import ctypes
+    from bs4 import BeautifulSoup
+    import math as mather
+    import threading
+    from suntime import Sun
+    import datetime as dater
+    if platform.system() == "Windows":
+        from ctypes import *
+    import zipfile
+    import shutil
+    import pickle
+    import xml.etree.ElementTree as ET
+
+# Globals class, used for various functions
 class globals:
-    class sound:
-        soundArray = [[], 0]
-        def initializeSoundArray(n):
-            i = 0
-            while i < n:
-                globals.sound.soundArray[0].append('print("system fucky!")')
-                i = i + 1
-            return 0
+        
     class color:
         ticn = -3
         jsonData = {}
 
-class system:
-    def getCPU(wait):
-        error = 0
-        try:
-            temp = 50
-            temp = psutil.cpu_percent(float(wait))
-        except:
-            print("Unexpected error:", sys.exc_info())
-            error = 1
-        if error != 0:
-            temp = error
-        return temp
+# system class, used for performing system hardware level functions
+if platform.system() == "Windows":
+    class system:
 
+        # returns average cpu usage over wait time measured in milliseconds
+        def getCPU(wait):
+            error = 0
+            try:
+                temp = 50
+                temp = psutil.cpu_percent(float(wait))
+            except:
+                print("Unexpected error:", sys.exc_info())
+                error = 1
+            if error != 0:
+                temp = error
+            return temp
+
+# IO class, used for performing IO operations between files on disk.
 class IO:
-    def getJson(path, doPrint=True):
-        import traceback
+    # returns json object from json file path
+    def getJson(path):
         error = 0
         try:
             file = open(path, "r")
             jsonData = json.loads(file.read())
             file.close()
         except:
-            if doPrint:
-                print(traceback.format_exc())
-                print("Unexpected error:", sys.exc_info())
-                print(path)
+            print("Unexpected error:", sys.exc_info())
             error = 1
         if error != 0:
             jsonData = error
         return jsonData
-    
-    def getXml(path, doPrint=True):
-        return xmltodict.parse(IO.getFile(path, doPrint=doPrint))
-    
-    def saveXml(path, doPrint=True):
-        pass
+        
+    def getXML(path):
+        tree = ET.parse(path)
+        root = tree.getroot()
+        return root
+        
+    def saveXML(path, xml):
+        error = 0
+        try:
+            file = open(path, "w")
+            file.write(ET.tostring(xml).decode('UTF-8').replace("ns0:", "").replace(":ns0", ""))
+            file.close()
+        except:
+            print("Unexpected error:", sys.exc_info())
+            error = 1
+        return error
 
+
+    # saves json object into a file
     def saveJson(path, jsonData):
         error = 0
         try:
@@ -104,155 +199,182 @@ class IO:
             error = 1
         return error
 
-    def getFile(path, doPrint=True):
+    # returns file contents of path in the form of a string
+    def getFile(path):
         error = 0
         try:
             file = open(path, "r")
             jsonData = file.read()
             file.close()
         except:
-            if doPrint:
-                print("Unexpected error:", sys.exc_info())
+            print("Unexpected error:", sys.exc_info())
             error = 1
         if error != 0:
             jsonData = error
         return jsonData
     
-    def getBytes(path, doPrint=True):
-        error = 0
-        try:
-            file = open(path, "rb")
-            jsonData = file.read()
-            file.close()
-        except:
-            if doPrint:
-                print("Unexpected error:", sys.exc_info())
-            error = 1
-        if error != 0:
-            jsonData = error
-        return jsonData
+    # DEPRECATED, used for performing console operations in python, such as writing text to a specific coord on the screen.
+    if platform.system() == "Windows":
+        class console:
+            STD_OUTPUT_HANDLE = -11
     
-    class console:
-        STD_OUTPUT_HANDLE = -11
- 
-        class COORD(Structure):
-            pass
- 
-        COORD._fields_ = [("X", c_short), ("Y", c_short)]
-        
-        class textUtils:
-            def getTextFromRawBytes(buf: bytes, numChars: int, encoding: Optional[str] = None, errorsFallback: str = "replace"):
-                """
-                Gets a string from a raw bytes object, decoded using the specified L{encoding}.
-                In most cases, the bytes object is fetched by passing the raw attribute of a ctypes.c_char-Array to this function.
-                If L{encoding} is C{None}, the bytes object is inspected on whether it contains single byte or multi byte characters.
-                As a first attempt, the bytes are encoded using the surrogatepass error handler.
-                This handler behaves like strict for all encodings without surrogates,
-                while making sure that surrogates are properly decoded when using UTF-16.
-                If that fails, the exception is logged and the bytes are decoded
-                according to the L{errorsFallback} error handler.
-                """
-                if encoding is None:
-                    # If the buffer we got contains any non null characters from numChars to the buffer's end,
-                    # the buffer most likely contains multibyte characters.
-                    # Note that in theory, it could also be a multibyte character string
-                    # with nulls taking up the second half of the string.
-                    # Unfortunately, there isn't a good way to detect those cases.
-                    if numChars > 1 and any(buf[numChars:]):
-                        encoding = "utf_16_le"
+            class COORD(Structure):
+                pass
+    
+            COORD._fields_ = [("X", c_short), ("Y", c_short)]
+            
+            class textUtils:
+                def getTextFromRawBytes(buf: bytes, numChars: int, encoding: Optional[str] = None, errorsFallback: str = "replace"):
+                    """
+                    Gets a string from a raw bytes object, decoded using the specified L{encoding}.
+                    In most cases, the bytes object is fetched by passing the raw attribute of a ctypes.c_char-Array to this function.
+                    If L{encoding} is C{None}, the bytes object is inspected on whether it contains single byte or multi byte characters.
+                    As a first attempt, the bytes are encoded using the surrogatepass error handler.
+                    This handler behaves like strict for all encodings without surrogates,
+                    while making sure that surrogates are properly decoded when using UTF-16.
+                    If that fails, the exception is logged and the bytes are decoded
+                    according to the L{errorsFallback} error handler.
+                    """
+                    if encoding is None:
+                        # If the buffer we got contains any non null characters from numChars to the buffer's end,
+                        # the buffer most likely contains multibyte characters.
+                        # Note that in theory, it could also be a multibyte character string
+                        # with nulls taking up the second half of the string.
+                        # Unfortunately, there isn't a good way to detect those cases.
+                        if numChars > 1 and any(buf[numChars:]):
+                            encoding = "utf_16_le"
+                        else:
+                            encoding = locale.getpreferredencoding()
                     else:
-                        encoding = locale.getpreferredencoding()
-                else:
-                    encoding = encodings.normalize_encoding(encoding).lower()
-                if encoding.startswith("utf_16"):
-                    numBytes = numChars * 2
-                elif encoding.startswith("utf_32"):
-                    numBytes = numChars * 4
-                else: # All other encodings are single byte.
-                    numBytes = numChars
-                rawText: bytes = buf[:numBytes]
-                if not any(rawText):
-                    # rawText is empty or only contains null characters.
-                    # If this is a range with only null characters in it, there's not much we can do about this.
-                    return ""
-                try:
-                    text = rawText.decode(encoding, errors="surrogatepass")
-                except UnicodeDecodeError:
-                    text = rawText.decode(encoding, errors=errorsFallback)
-                return text
+                        encoding = encodings.normalize_encoding(encoding).lower()
+                    if encoding.startswith("utf_16"):
+                        numBytes = numChars * 2
+                    elif encoding.startswith("utf_32"):
+                        numBytes = numChars * 4
+                    else: # All other encodings are single byte.
+                        numBytes = numChars
+                    rawText: bytes = buf[:numBytes]
+                    if not any(rawText):
+                        # rawText is empty or only contains null characters.
+                        # If this is a range with only null characters in it, there's not much we can do about this.
+                        return ""
+                    try:
+                        text = rawText.decode(encoding, errors="surrogatepass")
+                    except UnicodeDecodeError:
+                        text = rawText.decode(encoding, errors=errorsFallback)
+                    return text
 
-        def printAtRun(c, r, s):
-            
-            if IO.console.readAt(len(s), c, r) != s:
-            
-                h = windll.kernel32.GetStdHandle(IO.console.STD_OUTPUT_HANDLE)
-                windll.kernel32.SetConsoleCursorPosition(h, IO.console.COORD(c, r))
-            
-                c = s.encode("windows-1252")
-                windll.kernel32.WriteConsoleA(h, c_char_p(c), len(c), None, None)
-
-            else:
-                c = s.encode("windows-1252")
-            
-            return len(c)
+            def printAtRun(c, r, s):
                 
-        def printAt(c, r, s):
-            
-            x = c
-            printStrf = ""
-            for char in s:
-                didLast = False
-                if char != "\r":
-                    printStrf = printStrf + char
+                if IO.console.readAt(len(s), c, r) != s:
+                
+                    h = windll.kernel32.GetStdHandle(IO.console.STD_OUTPUT_HANDLE)
+                    windll.kernel32.SetConsoleCursorPosition(h, IO.console.COORD(c, r))
+                
+                    c = s.encode("windows-1252")
+                    windll.kernel32.WriteConsoleA(h, c_char_p(c), len(c), None, None)
+
                 else:
-                    x = x + IO.console.printAtRun(x, r, printStrf) + 1
-                    printStrf = ""
+                    c = s.encode("windows-1252")
+                
+                return len(c)
                     
-            IO.console.printAtRun(x, r, printStrf)
+            def printAt(c, r, s):
                 
-            return
-    
-            x = c
-            for text in s.split("\r"):
-                
-                if text != "":
-                    # print(bytes(text, encoding="ascii"))
-                    IO.console.printAtRun(x, r, text)
-                
-                k = 10
-                for n in text:
-                    if bytes(n, encoding='ascii') == b'\x1b':
-                        k = 0
-                    if k > 3:
-                        if not ((k == 4) and lastChar == '0'):
-                            x = x + 1
+                x = c
+                printStrf = ""
+                for char in s:
+                    didLast = False
+                    if char != "\r":
+                        printStrf = printStrf + char
                     else:
-                        if k == 2:
-                            lastChar = n
-                
-                    k = k + 1
-                
-                if text == "":
-                    x = x + 1
+                        x = x + IO.console.printAtRun(x, r, printStrf) + 1
+                        printStrf = ""
+                        
+                IO.console.printAtRun(x, r, printStrf)
+                    
+                return
         
-        # wincon tools https://github.com/nvaccess/nvda/blob/master/source/wincon.py
-         
-        def readAt(length, x, y):
+                x = c
+                for text in s.split("\r"):
+                    
+                    if text != "":
+                        # print(bytes(text, encoding="ascii"))
+                        IO.console.printAtRun(x, r, text)
+                    
+                    k = 10
+                    for n in text:
+                        if bytes(n, encoding='ascii') == b'\x1b':
+                            k = 0
+                        if k > 3:
+                            if not ((k == 4) and lastChar == '0'):
+                                x = x + 1
+                        else:
+                            if k == 2:
+                                lastChar = n
+                    
+                        k = k + 1
+                    
+                    if text == "":
+                        x = x + 1
             
-            handle = windll.kernel32.GetStdHandle(IO.console.STD_OUTPUT_HANDLE)
+            # wincon tools https://github.com/nvaccess/nvda/blob/master/source/wincon.py
             
-            # Use a string buffer, as from an unicode buffer, we can't get the raw data.
-            buf=create_string_buffer(length * 2)
-            numCharsRead=c_int()
-            if windll.kernel32.ReadConsoleOutputCharacterW(handle, buf, length, IO.console.COORD(x,y), byref(numCharsRead)) == 0:
-                raise WinError()
-            return IO.console.textUtils.getTextFromRawBytes(buf.raw, numChars=numCharsRead.value, encoding="utf_16_le")
-            
-            
+            def readAt(length, x, y):
+                
+                handle = windll.kernel32.GetStdHandle(IO.console.STD_OUTPUT_HANDLE)
+                
+                # Use a string buffer, as from an unicode buffer, we can't get the raw data.
+                buf=create_string_buffer(length * 2)
+                numCharsRead=c_int()
+                if windll.kernel32.ReadConsoleOutputCharacterW(handle, buf, length, IO.console.COORD(x,y), byref(numCharsRead)) == 0:
+                    raise WinError()
+                return IO.console.textUtils.getTextFromRawBytes(buf.raw, numChars=numCharsRead.value, encoding="utf_16_le")
+
+    # saves a string into a file. Overwrites previous content!
     def saveFile(path, jsonData):
         error = 0
         try:
             file = open(path, "w")
+            file.write(jsonData)
+            file.close()
+        except:
+            print("Unexpected error:", sys.exc_info())
+            error = 1
+        return error
+
+    # Saves an array into a file in the form of a pickle list.
+    def saveList(path, list):
+        error = 0
+        try:
+            file = open(path, "wb")
+            pickle.dump(list, file)
+            file.close()
+        except:
+            print("Unexpected error:", sys.exc_info())
+            error = 1
+        return error
+
+    # Retreives an array from a file in the form of a pickle list.
+    def getList(path):
+        list = []
+        error = 0
+        try:
+            file = open(path, "rb")
+            jsonData = pickle.load(file)
+            file.close()
+        except:
+            print("Unexpected error:", sys.exc_info())
+            error = 1
+        if error != 0:
+            jsonData = error
+        return [list, jsonData]
+
+    # Writes a string to a file without overwriting contents.
+    def appendFile(path, jsonData):
+        error = 0
+        try:
+            file = open(path, "a")
             file.write(jsonData)
             file.close()
         except:
@@ -270,24 +392,12 @@ class IO:
             print("Unexpected error:", sys.exc_info())
             error = 1
         return error
-
-    def saveList(path, list):
-        error = 0
-        try:
-            file = open(path, "wb")
-            pickle.dump(list, file)
-            file.close()
-        except:
-            print("Unexpected error:", sys.exc_info())
-            error = 1
-        return error
-
-    def getList(path, doPrint=True):
-        list = []
+    
+    def getBytes(path, doPrint=True):
         error = 0
         try:
             file = open(path, "rb")
-            jsonData = pickle.load(file)
+            jsonData = file.read()
             file.close()
         except:
             if doPrint:
@@ -295,86 +405,84 @@ class IO:
             error = 1
         if error != 0:
             jsonData = error
-        return [list, jsonData]
-
-    def appendFile(path, jsonData):
-        error = 0
-        try:
-            file = open(path, "a")
-            file.write(jsonData)
-            file.close()
-        except:
-            print("Unexpected error:", sys.exc_info())
-            error = 1
-        return error
+        return jsonData
     
+    # Unpacks files from zip format to a specified directory
     def unpack(path, outDir):
         try:
             with zipfile.ZipFile(path, 'r') as zip_ref:
                 print(zip_ref.printdir())
-                print('Extracting zip resources...')
+                print('Extracting .cadberryheights resources...')
                 zip_ref.extractall(outDir)
                 print("Done.")
         except Exception as erro:
                 print("Could not unpack zip file.")
                 print(erro)
 
+    # Packs files from a directory into a zip file
     def pack(path, dir):
         shutil.make_archive(path, 'zip', dir)
-        
 
+if platform.system() == "Windows":
+    # Windows related functions. (Compatible with Windows 10, other operating systems untested.)
+    class winAPI:
 
-class winAPI:
-    def getWallpaper():
-        sbuf = ctypes.create_string_buffer(512) # ctypes.c_buffer(512)
-        ctypes.windll.user32.SystemParametersInfoA(win32con.SPI_GETDESKWALLPAPER,len(sbuf),sbuf,0)
-        return sbuf.value
+        # get wallpaper file path (Desktop background)
+        def getWallpaper():
+            sbuf = ctypes.create_string_buffer(512) # ctypes.c_buffer(512)
+            ctypes.windll.user32.SystemParametersInfoA(win32con.SPI_GETDESKWALLPAPER,len(sbuf),sbuf,0)
+            return sbuf.value
 
-    def setWallpaper(path):
-        changed = win32con.SPIF_UPDATEINIFILE | win32con.SPIF_SENDCHANGE
-        ctypes.windll.user32.SystemParametersInfoA(win32con.SPI_SETDESKWALLPAPER,0,path.encode(),changed) # "".encode() = b""
+        # Set wallpaper file path (Set desktop background)
+        def setWallpaper(path):
+            changed = win32con.SPIF_UPDATEINIFILE | win32con.SPIF_SENDCHANGE
+            ctypes.windll.user32.SystemParametersInfoA(win32con.SPI_SETDESKWALLPAPER,0,path.encode(),changed) # "".encode() = b""
 
-    class WindowsBalloonTip:
-        def __init__(self, title, msg):
-            message_map = {
-                    win32con.WM_DESTROY: self.OnDestroy,
-            }
-            # Register the Window class.
-            wc = WNDCLASS()
-            hinst = wc.hInstance = GetModuleHandle(None)
-            wc.lpszClassName = "PythonTaskbar"
-            wc.lpfnWndProc = message_map # could also specify a wndproc.
-            classAtom = RegisterClass(wc)
-            # Create the Window.
-            style = win32con.WS_OVERLAPPED | win32con.WS_SYSMENU
-            self.hwnd = CreateWindow( classAtom, "Taskbar", style, \
-                    0, 0, win32con.CW_USEDEFAULT, win32con.CW_USEDEFAULT, \
-                    0, 0, hinst, None)
-            UpdateWindow(self.hwnd)
-            iconPathName = os.path.abspath(os.path.join( sys.path[0], "balloontip.ico" ))
-            icon_flags = win32con.LR_LOADFROMFILE | win32con.LR_DEFAULTSIZE
-            try:
-                hicon = LoadImage(hinst, iconPathName, \
-                        win32con.IMAGE_ICON, 0, 0, icon_flags)
-            except:
-                hicon = LoadIcon(0, win32con.IDI_APPLICATION)
-                flags = NIF_ICON | NIF_MESSAGE | NIF_TIP
-                nid = (self.hwnd, 0, flags, win32con.WM_USER+20, hicon, "tooltip")
-                Shell_NotifyIcon(NIM_ADD, nid)
-                Shell_NotifyIcon(NIM_MODIFY, \
-                            (self.hwnd, 0, NIF_INFO, win32con.WM_USER+20,\
-                            hicon, "Balloon  tooltip",msg,200,title))
-                # self.show_balloon(title, msg)
-                os.times.sleep(10)
-                DestroyWindow(self.hwnd)
-        def OnDestroy(self, hwnd, msg, wparam, lparam):
-            nid = (self.hwnd, 0)
-            Shell_NotifyIcon(NIM_DELETE, nid)
-            PostQuitMessage(0) # Terminate the app.
+        # Balloon Operations class.
+        class WindowsBalloonTip:
+            def __init__(self, title, msg):
+                message_map = {
+                        win32con.WM_DESTROY: self.OnDestroy,
+                }
+                # Register the Window class.
+                wc = WNDCLASS()
+                hinst = wc.hInstance = GetModuleHandle(None)
+                wc.lpszClassName = "PythonTaskbar"
+                wc.lpfnWndProc = message_map # could also specify a wndproc.
+                classAtom = RegisterClass(wc)
+                # Create the Window.
+                style = win32con.WS_OVERLAPPED | win32con.WS_SYSMENU
+                self.hwnd = CreateWindow( classAtom, "Taskbar", style, \
+                        0, 0, win32con.CW_USEDEFAULT, win32con.CW_USEDEFAULT, \
+                        0, 0, hinst, None)
+                UpdateWindow(self.hwnd)
+                iconPathName = os.path.abspath(os.path.join( sys.path[0], "balloontip.ico" ))
+                icon_flags = win32con.LR_LOADFROMFILE | win32con.LR_DEFAULTSIZE
+                try:
+                    hicon = LoadImage(hinst, iconPathName, \
+                            win32con.IMAGE_ICON, 0, 0, icon_flags)
+                except:
+                    hicon = LoadIcon(0, win32con.IDI_APPLICATION)
+                    flags = NIF_ICON | NIF_MESSAGE | NIF_TIP
+                    nid = (self.hwnd, 0, flags, win32con.WM_USER+20, hicon, "tooltip")
+                    Shell_NotifyIcon(NIM_ADD, nid)
+                    Shell_NotifyIcon(NIM_MODIFY, \
+                                (self.hwnd, 0, NIF_INFO, win32con.WM_USER+20,\
+                                hicon, "Balloon  tooltip",msg,200,title))
+                    # self.show_balloon(title, msg)
+                    os.times.sleep(10)
+                    DestroyWindow(self.hwnd)
+            def OnDestroy(self, hwnd, msg, wparam, lparam):
+                nid = (self.hwnd, 0)
+                Shell_NotifyIcon(NIM_DELETE, nid)
+                PostQuitMessage(0) # Terminate the app.
 
-    def balloon_tip(title, msg):
-        w=winAPI.WindowsBalloonTip(title, msg)
+        # Execute a windows balloon notification (little bubble at the taskbar)
+        def balloon_tip(title, msg):
+            w=winAPI.WindowsBalloonTip(title, msg)
 
+# used for performing color operations and calculations.
+# This is a bit more of a neish class used for a small few of my projects, feel free to do with it what u wish!
 class color:
     def tempCalc(temp):
         if temp > 298:
@@ -526,7 +634,8 @@ class color:
         if blue > 255:
             blue = 255
         return [red, green, blue]
-    
+
+# Calc class, contains functions for performing operations on large numbers, largely untested and contains a few solid bugs.
 class calc:
     def subtractLarge(numbera, numberb):
             i = 0
@@ -861,7 +970,10 @@ class calc:
             out = str(num)[1:]
         return out
 
+# Net class, used for performing internet operations
 class net:
+
+    # Send an email via smtp
     def sendEmail(userEmail, password, toEmail, inputType, messageData, server, port):
         try:
             error = 0
@@ -898,7 +1010,8 @@ class net:
             error = err
         return error
 
-    def getJsonAPI(url, timeout=10):
+    # get Json data from an API
+    def getJsonAPI(url):
         ssl._create_default_https_context = ssl._create_unverified_context
         req = urllib.request.Request(
             url, 
@@ -907,11 +1020,11 @@ class net:
                 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
             }
         )
-        response = urlopen(req, timeout=timeout)
-        h = response.read()
-        data_json = json.loads(h)
+        response = urlopen(req)
+        data_json = json.loads(response.read())
         return data_json
     
+    # get raw HTML from a webpage, compatible with bs4.
     def getRawAPI(url, myobj):
         ssl._create_default_https_context = ssl._create_unverified_context
         req = urllib.request.Request(
@@ -925,6 +1038,7 @@ class net:
         data_json = response.read()
         return data_json
 
+    # used for making post requests to web servers
     def makePostRequest(url, myobj):
         myobj['User-Agent'] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
         ssl._create_default_https_context = ssl._create_unverified_context
@@ -941,6 +1055,7 @@ class net:
         data_json = response.text
         return data_json
 
+    # returns non html text on a webpage
     def getTextAPI(url):
         ssl._create_default_https_context = ssl._create_unverified_context
         req = urllib.request.Request(
@@ -956,6 +1071,7 @@ class net:
         data_out = cipher.listToString(text)
         return data_out
 
+    # can't remember what this does, maybe it activates a death ray?
     def postAPI(url, node, data, encodeBool):
         ssl._create_default_https_context = ssl._create_unverified_context
         if int(encodeBool) != 0:
@@ -967,27 +1083,10 @@ class net:
         response = urlopen(url)
         data_json = response.read()
         return data_json
-    
-    def download(urlf, path, maxB):
-        i = 0
-        n = 0
-        local_filename = path
-        # NOTE the stream=True parameter below
-        with requests.get(urlf, stream=True) as r:
-            r.raise_for_status()
-            with open(local_filename, 'wb') as f:
-                for chunk in r.iter_content(chunk_size=8192): 
-                    # If you have chunk encoded response uncomment if
-                    # and set chunk_size parameter to None.
-                    #if chunk: 
-                    i = i + 1
-                    f.write(chunk)
-                    percent = (n / maxB) * 100
-                    print("Download Progress: " + str(int(percent)) + "% ::: iter_bytepos: " + str(n) + " ::: writing file chunk " + str(i) + "...")
-                    n = n + 8192
-        return local_filename
 
-class cipher:  
+# Cipher class, contains cryptography related functions
+class cipher:
+    
     def base64_encode(s, isBytes=False):
         if not isBytes:
             encode = base64.standard_b64encode(bytes(s, encoding="utf-8")).decode("utf-8").replace("=", "?")
@@ -1006,6 +1105,7 @@ class cipher:
         str1 = " "
         return (str1.join(s))
 
+    # basic string tools commonly used by other functions in the class
     class tools:
         def removeDuplicateChars(string: str):
             newString = ""
@@ -1020,11 +1120,12 @@ class cipher:
             str1 = " "
             return (str1.join(s))
     
+    # Advanced and expanded enigma machine, works with most ASCII characters rather than just ABC+
     class enigma:
         class globals:
             null = ""
-            charToNum = {' ': '32', '!': '33', '"': '34', '#': '35', '$': '36', '%': '37', '&': '38', "'": '39', '(': '40', ')': '41', '*': '42', '+': '43', ',': '44', '-': '45', '.': '46', '/': '47', '0': '48', '1': '49', '2': '50', '3': '51', '4': '52', '5': '53', '6': '54', '7': '55', '8': '56', '9': '57', ':': '58', ';': '59', '<': '60', '=': '61', '>': '62', '?': '63', '@': '64', 'A': '65', 'B': '66', 'C': '67', 'D': '68', 'E': '69', 'F': '70', 'G': '71', 'H': '72', 'I': '73', 'J': '74', 'K': '75', 'L': '76', 'M': '77', 'N': '78', 'O': '79', 'P': '80', 'Q': '81', 'R': '82', 'S': '83', 'T': '84', 'U': '85', 'V': '86', 'W': '87', 'X': '88', 'Y': '89', 'Z': '90', '[': '91', '/': '92', ']': '93', '^': '94', '_': '95', '`': '96', 'a': '97', 'b': '98', 'c': '99', 'd': '100', 'e': '101', 'f': '102', 'g': '103', 'h': '104', 'i': '105', 'j': '106', 'k': '107', 'l': '108', 'm': '109', 'n': '110', 'o': '111', 'p': '112', 'q': '113', 'r': '114', 's': '115', 't': '116', 'u': '117', 'v': '118', 'w': '119', 'x': '120', 'y': '121', 'z': '122', '{': '123', '|': '124', '}': '125', '~': '126'}
-            numToChar = {'32': ' ', '33': '!', '34': '"', '35': '#', '36': '$', '37': '%', '38': '&', '39': "'", '40': '(', '41': ')', '42': '*', '43': '+', '44': ',', '45': '-', '46': '.', '47': '/', '48': '0', '49': '1', '50': '2', '51': '3', '52': '4', '53': '5', '54': '6', '55': '7', '56': '8', '57': '9', '58': ':', '59': ';', '60': '<', '61': '=', '62': '>', '63': '?', '64': '@', '65': 'A', '66': 'B', '67': 'C', '68': 'D', '69': 'E', '70': 'F', '71': 'G', '72': 'H', '73': 'I', '74': 'J', '75': 'K', '76': 'L', '77': 'M', '78': 'N', '79': 'O', '80': 'P', '81': 'Q', '82': 'R', '83': 'S', '84': 'T', '85': 'U', '86': 'V', '87': 'W', '88': 'X', '89': 'Y', '90': 'Z', '91': '[', '92': '/', '93': ']', '94': '^', '95': '_', '96': '`', '97': 'a', '98': 'b', '99': 'c', '100': 'd', '101': 'e', '102': 'f', '103': 'g', '104': 'h', '105': 'i', '106': 'j', '107': 'k', '108': 'l', '109': 'm', '110': 'n', '111': 'o', '112': 'p', '113': 'q', '114': 'r', '115': 's', '116': 't', '117': 'u', '118': 'v', '119': 'w', '120': 'x', '121': 'y', '122': 'z', '123': '{', '124': '|', '125': '}', '126': '~'}
+            charToNum = {' ': '32', '!': '33', '"': '34', '#': '35', '$': '36', '%': '37', '&': '38', "'": '39', '(': '40', ')': '41', '*': '42', '+': '43', ',': '44', '-': '45', '.': '46', '/': '47', '0': '48', '1': '49', '2': '50', '3': '51', '4': '52', '5': '53', '6': '54', '7': '55', '8': '56', '9': '57', ':': '58', ';': '59', '<': '60', '=': '61', '>': '62', '?': '63', '@': '64', 'A': '65', 'B': '66', 'C': '67', 'D': '68', 'E': '69', 'F': '70', 'G': '71', 'H': '72', 'I': '73', 'J': '74', 'K': '75', 'L': '76', 'M': '77', 'N': '78', 'O': '79', 'P': '80', 'Q': '81', 'R': '82', 'S': '83', 'T': '84', 'U': '85', 'V': '86', 'W': '87', 'X': '88', 'Y': '89', 'Z': '90', '[': '91', '\\': '92', ']': '93', '^': '94', '_': '95', '`': '96', 'a': '97', 'b': '98', 'c': '99', 'd': '100', 'e': '101', 'f': '102', 'g': '103', 'h': '104', 'i': '105', 'j': '106', 'k': '107', 'l': '108', 'm': '109', 'n': '110', 'o': '111', 'p': '112', 'q': '113', 'r': '114', 's': '115', 't': '116', 'u': '117', 'v': '118', 'w': '119', 'x': '120', 'y': '121', 'z': '122', '{': '123', '|': '124', '}': '125', '~': '126'}
+            numToChar = {'32': ' ', '33': '!', '34': '"', '35': '#', '36': '$', '37': '%', '38': '&', '39': "'", '40': '(', '41': ')', '42': '*', '43': '+', '44': ',', '45': '-', '46': '.', '47': '/', '48': '0', '49': '1', '50': '2', '51': '3', '52': '4', '53': '5', '54': '6', '55': '7', '56': '8', '57': '9', '58': ':', '59': ';', '60': '<', '61': '=', '62': '>', '63': '?', '64': '@', '65': 'A', '66': 'B', '67': 'C', '68': 'D', '69': 'E', '70': 'F', '71': 'G', '72': 'H', '73': 'I', '74': 'J', '75': 'K', '76': 'L', '77': 'M', '78': 'N', '79': 'O', '80': 'P', '81': 'Q', '82': 'R', '83': 'S', '84': 'T', '85': 'U', '86': 'V', '87': 'W', '88': 'X', '89': 'Y', '90': 'Z', '91': '[', '92': '\\', '93': ']', '94': '^', '95': '_', '96': '`', '97': 'a', '98': 'b', '99': 'c', '100': 'd', '101': 'e', '102': 'f', '103': 'g', '104': 'h', '105': 'i', '106': 'j', '107': 'k', '108': 'l', '109': 'm', '110': 'n', '111': 'o', '112': 'p', '113': 'q', '114': 'r', '115': 's', '116': 't', '117': 'u', '118': 'v', '119': 'w', '120': 'x', '121': 'y', '122': 'z', '123': '{', '124': '|', '125': '}', '126': '~'}
 
         class enigma:
             salt = 0
@@ -1082,6 +1183,7 @@ class cipher:
         def dummy(dum):
             return dum
 
+        # Working class of enigma machine, contains encode and decode functions
         class work:
             def encode(string):
                 rotorCount = cipher.enigma.enigma.rotorCount
@@ -1159,6 +1261,7 @@ class cipher:
                     i = i + 1
                 return newString
 
+# image functions, used for working with image files such as jpg and png
 class imageWorker:
     def getRGB(path):
         image_url = path
@@ -1171,6 +1274,7 @@ class imageWorker:
         # print('#{:02x}{:02x}{:02x}'.format(*nf))
         return colorrgb
 
+# Clock functions, used for getting current time and converting to various formats.
 class clock:
     def getDateTime(utc = False):
         if utc:
@@ -1364,22 +1468,22 @@ class clock:
             yearf = yearf + 1
         
         return day
-    
+
+# Dummy function, used for doing dumb stuff and detecting malformed error'd data.
 def dummy(*args):
     if args[0] == args[0]:
         pass
     return 0
 
-def dummyf(var):
-    pass
-    
+# DEPRECATED, from a past time when this script was a standalone executable for use in Batch.
 def runFile(path):
     code = IO.getFile(path)
     out = exec(code)
     return out
 
+# if help() wasn't enough lmao
 def libHelp(self):
     help(self)
 
-if False:
-    print("type help(pytools) or pytools.libHelp(pytools) to get more info about the library!")
+# if your dumb.
+print("type help(pytools) or pytools.libHelp(pytools) to get more info about the library!")
