@@ -40,7 +40,7 @@ class globals:
 class main:
     def dataGrabber():
         dataGrabbed = 0
-        apiUrl = "http://' + pytools.IO.getJson("./serverSettings.json")["domain_interface"] + ':226/access.php?grabopenspec=true&lat=<lat>&lon=<lon>&key=<key>"
+        apiUrl = "http://" + pytools.IO.getJson("./serverSettings.json")["domain_interface"] + ":226/access.php?grabopenspec=true&lat=<lat>&lon=<lon>&key=<key>"
         globals.location = pytools.IO.getJson("./location.json")
         globals.key = pytools.IO.getJson("./access.key")["openweathermap"]
         apiUrl = apiUrl.replace("<key>", globals.key).replace("<lat>", str(globals.location["coords"][0])).replace("<lon>", str(globals.location["coords"][1]))
