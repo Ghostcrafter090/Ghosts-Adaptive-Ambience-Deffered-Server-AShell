@@ -607,7 +607,7 @@ def getForecast():
         
     otherApiKey = openweather.stealApiKey(openweather.pollJavascriptFilename())
     
-    forecastUrl = "http://' + pytools.IO.getJson(".\\serverSettings.json")["domain_interface"] + ':226/access.php?grabopenforecast=true&key=" + pytools.IO.getJson("access.key")["openweathermap"]
+    forecastUrl = "http://" + pytools.IO.getJson(".\\serverSettings.json")["domain_interface"] + ":226/access.php?grabopenforecast=true&key=" + pytools.IO.getJson("access.key")["openweathermap"]
     
     if otherApiKey:
         dailyUrl = "https://api.openweathermap.org/data/2.5/forecast/daily?" + pictou + "&cnt=16&appid=" + otherApiKey
