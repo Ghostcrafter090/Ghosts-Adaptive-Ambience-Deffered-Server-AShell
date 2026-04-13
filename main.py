@@ -10,6 +10,8 @@ import modules.defferedTools as defferedTools
 import modules.audio as audio
 import modules.logManager as log
 import modules.speed as speed
+import urllib.parse
+import json
 speed.run()
 
 print = log.printLog
@@ -259,6 +261,12 @@ def run():
     
     noHosts = True
     while noHosts:
+        
+        try:
+            pytools.IO.saveJson("hosts.json", pytools.net.getJsonAPI("http://" + pytools.IO.getJson("serverSettings.json")["ip"] + ':5597?json=' + urllib.parse.quote(json.dumps({"command":"getJson","data":{"path":".\\hosts.json"}}))))
+        except:
+            pass
+        
         try:
             hosts = pytools.IO.getJson("./hosts.json")["hosts"]
             if hosts != []:
@@ -286,6 +294,11 @@ def run():
     
     while True:
         
+        try:
+            pytools.IO.saveJson("hosts.json", pytools.net.getJsonAPI("http://" + pytools.IO.getJson("serverSettings.json")["ip"] + ':5597?json=' + urllib.parse.quote(json.dumps({"command":"getJson","data":{"path":".\\hosts.json"}}))))
+        except:
+            pass
+    
         pytools.IO.saveJson("..\gil.json", {
             "prevTic": speed.vars.prevTic,
             "switchInterval": sys.getswitchinterval(),

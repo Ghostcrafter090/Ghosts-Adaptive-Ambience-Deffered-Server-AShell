@@ -972,8 +972,6 @@ class calc:
 
 # Net class, used for performing internet operations
 class net:
-
-    # Send an email via smtp
     def sendEmail(userEmail, password, toEmail, inputType, messageData, server, port):
         try:
             error = 0
@@ -1010,8 +1008,7 @@ class net:
             error = err
         return error
 
-    # get Json data from an API
-    def getJsonAPI(url):
+    def getJsonAPI(url, timeout=10):
         ssl._create_default_https_context = ssl._create_unverified_context
         req = urllib.request.Request(
             url, 
@@ -1020,11 +1017,11 @@ class net:
                 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
             }
         )
-        response = urlopen(req)
-        data_json = json.loads(response.read())
+        response = urlopen(req, timeout=timeout)
+        h = response.read()
+        data_json = json.loads(h)
         return data_json
     
-    # get raw HTML from a webpage, compatible with bs4.
     def getRawAPI(url, myobj):
         ssl._create_default_https_context = ssl._create_unverified_context
         req = urllib.request.Request(
@@ -1038,7 +1035,6 @@ class net:
         data_json = response.read()
         return data_json
 
-    # used for making post requests to web servers
     def makePostRequest(url, myobj):
         myobj['User-Agent'] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
         ssl._create_default_https_context = ssl._create_unverified_context
@@ -1055,7 +1051,6 @@ class net:
         data_json = response.text
         return data_json
 
-    # returns non html text on a webpage
     def getTextAPI(url):
         ssl._create_default_https_context = ssl._create_unverified_context
         req = urllib.request.Request(
@@ -1071,7 +1066,6 @@ class net:
         data_out = cipher.listToString(text)
         return data_out
 
-    # can't remember what this does, maybe it activates a death ray?
     def postAPI(url, node, data, encodeBool):
         ssl._create_default_https_context = ssl._create_unverified_context
         if int(encodeBool) != 0:
@@ -1083,6 +1077,25 @@ class net:
         response = urlopen(url)
         data_json = response.read()
         return data_json
+    
+    def download(urlf, path, maxB):
+        i = 0
+        n = 0
+        local_filename = path
+        # NOTE the stream=True parameter below
+        with requests.get(urlf, stream=True) as r:
+            r.raise_for_status()
+            with open(local_filename, 'wb') as f:
+                for chunk in r.iter_content(chunk_size=8192): 
+                    # If you have chunk encoded response uncomment if
+                    # and set chunk_size parameter to None.
+                    #if chunk: 
+                    i = i + 1
+                    f.write(chunk)
+                    percent = (n / maxB) * 100
+                    print("Download Progress: " + str(int(percent)) + "% ::: iter_bytepos: " + str(n) + " ::: writing file chunk " + str(i) + "...")
+                    n = n + 8192
+        return local_filename
 
 # Cipher class, contains cryptography related functions
 class cipher:
